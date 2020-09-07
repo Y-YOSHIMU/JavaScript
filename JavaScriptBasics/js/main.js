@@ -213,16 +213,101 @@
 
 // #20 関数で処理をまとめてみよう
 
-function showAd() {
-  console.log('------------');
-  console.log('-----Ad-----');
-  console.log('------------');
-}
+// function showAd() {
+//   console.log('------------');
+//   console.log('-----Ad-----');
+//   console.log('------------');
+// }
 
-showAd();
-console.log('Tom is great!');
-console.log('Bob is great!');
-showAd();
-console.log('Steve is great!');
-console.log('Richard is great!');
-showAd();
+// showAd();
+// console.log('Tom is great!');
+// console.log('Bob is great!');
+// showAd();
+// console.log('Steve is great!');
+// console.log('Richard is great!');
+// showAd();
+
+
+
+// #21 引数を使ってみよう
+
+
+// function showAd(message = 'Ad') { // 仮引数
+//   console.log('------------');
+//   console.log(`--- ${message} ---`); //テンプレートリテラル
+//   console.log('------------');
+// }
+
+// showAd('Header Ad'); // 実引数
+// console.log('Tom is great!');
+// console.log('Bob is great!');
+// // showAd('Ad');
+// showAd();
+// console.log('Steve is great!');
+// console.log('Richard is great!');
+// showAd('Footer Ad');
+
+
+
+// #22 returnで値を返してみよう
+
+// function sum(a, b, c) {
+//   // console.log(a + b + c);
+//   return a + b + c;
+//   console.log(a + b + c);
+// }
+
+// // sum(1, 2, 3);
+// // sum(3, 4, 5);
+
+// const total = sum(1, 2, 3) + sum(3, 4, 5);
+// // console.log(total);
+
+
+
+// #23 関数式を使ってみよう
+
+// const sum = function(a, b, c) {
+//   return a + b + c;
+// };
+
+// const total = sum(1, 2, 3) + sum(3, 4, 5);
+// console.log(total);
+
+
+
+// #24 アロー関数を使ってみよう
+
+// const sum = (a, b, c) => a + b + c;
+
+// const total = sum(1, 2, 3) + sum(3, 4, 5);
+// console.log(total);
+
+// const double = function(a) {
+//   return a * 2;
+// };
+
+// const double = a => a * 2;
+
+// console.log(double(12));
+
+
+
+// #25 スコープについて理解しよう
+
+// const x = 2;
+
+// function f() {
+//   // const x = 1;
+//   console.log(x);
+// }
+
+// f();
+// console.log(x);
+
+
+
+// #26 コードをブロックで囲っておこう
+
+const x = 100;
+console.log(x);
