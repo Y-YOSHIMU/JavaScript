@@ -309,5 +309,5 @@
 
 // #26 コードをブロックで囲っておこう
 
-const x = 100;
-console.log(x);
+// const x = 100;
+// console.log(x);
