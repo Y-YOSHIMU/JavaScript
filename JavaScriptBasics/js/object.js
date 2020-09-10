@@ -190,3 +190,149 @@
 
 //   console.log(points[1].y);
 // }
+
+
+
+// #15 変数を代入してみよう
+// #16 変数の挙動を理解しよう
+
+// {
+//   // let x = 1;
+//   // let y = x;
+//   // x = 5;
+//   // console.log(x);
+//   // console.log(y);
+
+//   // let x = [1, 2];
+//   // let y = x;
+//   // x[0] = 5;
+//   // console.log(x);
+//   // console.log(y);
+
+//   let x = [1, 2];
+//   let y = [...x];
+//   x[0] = 5;
+//   console.log(x);
+//   console.log(y);
+// }
+
+
+
+// #17 文字列を操作してみよう
+
+// {
+//   const str = 'hello';
+//   // console.log(str.length);
+//   // str.substring(開始位置<, 終了位置>);
+//   // console.log(str.substring(2, 4));
+//   // console.log(str[1]);
+// }
+
+
+
+// #18 join(), split()を使ってみよう
+// {
+//   // const d = [2019, 11, 14];
+//   // console.log(d.join('/'));
+
+//   const t = '17:08:24';
+//   // console.log(t.split(':'));
+//   const [hour, minute, second] = t.split(':');
+//   console.log(hour);
+//   console.log(minute);
+//   console.log(second);
+// }
+
+
+
+// #19 数値を操作してみよう
+// #20 ランダムな整数値を作ってみよう
+// {
+  // const scores = [10, 3, 9];
+  // let sum = 0;
+
+  // scores.forEach(score => {
+  //   sum += score;
+  // });
+
+  // const avg = sum / scores.length;
+
+  // console.log(sum);
+  // console.log(avg);
+
+  // console.log(Math.floor(avg)); //切り捨て
+  // console.log(Math.ceil(avg)); //切り上げ
+  // console.log(Math.round(avg)); //四捨五入
+  // console.log(avg.toFixed(3)); //小数点を指定
+
+  // console.log(Math.random());
+
+  // 0, 1, 2
+  // Math.floor(Math.random() * 3);
+  // 0, ..., n
+  // Math.floor(Math.random() * (n + 1));
+  // min, ..., max
+  // Math.floor(Math.random() * (max + 1 - min)) + min
+
+//   console.log(Math.floor(Math.random() * 6) + 1);
+// }
+
+
+
+// #21 現在日時を扱ってみよう
+// #22 特定の日時を扱ってみよう
+// {
+//   const d = new Date(2019, 10);
+//   d.setHours(10, 20, 30);
+//   d.setDate(31);
+//   d.setDate(d.getDate() + 3);
+//   console.log(d);
+
+//   // console.log(`${d.getMonth() + 1} 月 ${d.getDate()} 日`);
+//   // console.log(d.getTime());
+// }
+
+
+
+// #23 alert(),confirm()を使ってみよう
+// {
+//   // alert('hello');
+//   const answer = confirm('削除しますか？');
+//   if (answer) {
+//     console.log('削除しました');
+//   } else {
+//     console.log('キャンセルしました');
+//   }
+// }
+
+
+
+// #24 setInterval()を使ってみよう
+// {
+//   let i = 0;
+
+//   function showTime() {
+//     console.log(new Date());
+//     i++;
+//     if (i > 2) {
+//       clearInterval(intervalId);
+//     }
+//   }
+
+//   const intervalId = setInterval(showTime, 2000);
+// }
+
+// #25 setTimeout()を使ってみよう
+{
+  let i = 0
+
+  function showTime() {
+    console.log(new Date());
+  const timeoutId = setTimeout(showTime, 1000);
+  i++;
+  if (i > 2) {
+    clearTimeout(timeoutId);
+    }
+  }
+  showTime();
+}
