@@ -323,16 +323,100 @@
 // }
 
 // #25 setTimeout()を使ってみよう
-{
-  let i = 0
+// #26 タイマー処理の違いを理解しよう
+// {
+//   let i = 0
 
-  function showTime() {
-    console.log(new Date());
-  const timeoutId = setTimeout(showTime, 1000);
-  i++;
-  if (i > 2) {
-    clearTimeout(timeoutId);
+//   function showTime() {
+//     console.log(new Date());
+//   const timeoutId = setTimeout(showTime, 1000);
+//   i++;
+//   if (i > 2) {
+//     clearTimeout(timeoutId);
+//     }
+//   }
+//   showTime();
+// }
+
+
+
+// #27 例外処理を使ってみよう
+// {
+//   // const name = 'taguchi';
+//   const name = 5;
+
+//   try {
+//     console.log(name.toUpperCase());
+//   } catch (e) {
+//     console.log(e);
+//   }
+
+//   console.log('Finish!');
+// }
+
+
+
+// #28 オブジェクトが複数ある場合を考えよう
+// #29 メソッドを使ってみよう
+// #30 クラスの概念を理解しよう
+// #31 クラスを作ってみよう
+// #32 カプセル化を理解しよう
+// #33 静的メソッドを使ってみよう
+// #34 クラスを拡張したい場合を考えよう
+// #35 クラスを継承してみよう
+{
+
+  class Post { //親クラス
+    constructor(text) {
+      this.text = text;
+      this.likeCount = 0;
+    }
+
+    show() {
+      console.log(`${this.text} - ${this.likeCount} likes`);
+    }
+
+    like() {
+      this.likeCount++;
+      this.show();
+    }
+
+    // 静的メソッド
+    // thisは使えない
+    static showInfo() {
+      console.log('Post class version 1.0');
+    }
+
+  }
+
+  class SponsoredPost extends Post { // 子クラス
+    constructor(text, sponsor) {
+      super (text);
+      this.sponsor = sponsor;
+    }
+
+    show() {
+      super.show();
+      console.log(`... sponsored by ${this.sponsor}`);
     }
   }
-  showTime();
+
+
+  const posts = [
+    new Post('JavaScriptの勉強中・・・'),
+    new Post('プログラミング楽しい！'),
+    new SponsoredPost('3分間動画でマスターしよう', 'dotinstall'),
+  ];
+
+posts[2].show();
+posts[2].like();
+  // posts[0].like(); //インスタンスから呼び出す
+  // Post.showInfo(); //クラスから直接呼び出す
+//   posts[0].likeCount++; //プロパティに直接アクセスすることは推奨されていない
+//   posts[0].likeCount++;
+//   posts[0].likeCount++;
+//   posts[0].likeCount++; //変更時に全て直す必要がある
+
+// posts[0].show();
+// posts[1].show();
 }
