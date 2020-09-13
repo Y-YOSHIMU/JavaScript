@@ -11,17 +11,15 @@
 // #11 要素の複製、挿入をしてみよう
 // #12 要素の削除をしてみよう
 // #13 input要素を操作してみよう
+// #14 セレクトボックスを操作してみよう
 
 {
 
   document.querySelector('button').addEventListener('click', () => {
     const li = document.createElement('li');
-    const text = document.querySelector('input');
-    li.textContent = text.value;
+    const color = document.querySelector('select');
+    li.textContent = `${color.value} - ${color.selectedIndex}`;
     document.querySelector('ul').appendChild(li);
-
-    text.value = '';
-    text.focus();
   });
 
 }
