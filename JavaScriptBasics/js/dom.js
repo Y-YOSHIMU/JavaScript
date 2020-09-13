@@ -10,15 +10,18 @@
 // #10 要素を追加してみよう
 // #11 要素の複製、挿入をしてみよう
 // #12 要素の削除をしてみよう
+// #13 input要素を操作してみよう
 
 {
 
   document.querySelector('button').addEventListener('click', () => {
-    const item1 = document.querySelectorAll('li')[1];
+    const li = document.createElement('li');
+    const text = document.querySelector('input');
+    li.textContent = text.value;
+    document.querySelector('ul').appendChild(li);
 
-    // item1.remove();
-    // 親Node.removeChild(削除するNode)
-    document.querySelector('ul').removeChild(item1);
+    text.value = '';
+    text.focus();
   });
 
 }
