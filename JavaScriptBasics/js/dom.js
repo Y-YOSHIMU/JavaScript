@@ -16,18 +16,25 @@
 // #16 チェックボックスを操作してみよう
 // #17 色々なイベントを見てみよう
 // #18 イベントオブジェクトを扱ってみよう
+// #19 フォームで使われるイベントを見てみよう
 
 {
-  document.querySelector('button').addEventListener('dblclick', () => {
-    console.log('Double Clicked!');
-  });
+  const text = document.querySelector('textarea');
 
-  // document.addEventListener('mousemove', e => {
-  //   // console.log('moved');
-  //   console.log(e.clientX, e.clientY);
+  // text.addEventListener('focus', () => {
+  //   console.log('focus');
   // });
 
-  document.addEventListener('keydown', e => {
-    console.log(e.key);
+  // text.addEventListener('blur', () => { //blur=フォーカスが外れたとき
+  //   console.log('blur');
+  // });
+
+  text.addEventListener('input', () => {
+    // console.log('input');
+    console.log(text.value.length);
+  });
+
+  text.addEventListener('change', () => {
+    console.log('change');
   });
 }
