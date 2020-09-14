@@ -13,21 +13,23 @@
 // #13 input要素を操作してみよう
 // #14 セレクトボックスを操作してみよう
 // #15 ラジオボタンを操作してみよう
+// #16 チェックボックスを操作してみよう
 
 {
 
   document.querySelector('button').addEventListener('click', () => {
     const colors = document.querySelectorAll('input');
-    let selectedColor;
+    const selectedColors = [];
 
     colors.forEach(color => {
       if (color.checked === true) {
-        selectedColor = color.value;
+        selectedColors.push(color.value);
       }
     });
 
     const li = document.createElement('li');
-    li.textContent = selectedColor;
+    // li.textContent = selectedColors.join(',');
+    li.textContent = selectedColors;
     document.querySelector('ul').appendChild(li);
   });
 
