@@ -13,22 +13,17 @@
 // #13 input要素を操作してみよう
 // #14 セレクトボックスを操作してみよう
 // #15 ラジオボタンを操作してみよう
+// #16 チェックボックスを操作してみよう
+// #17 色々なイベントを見てみよう
+// #18 イベントオブジェクトを扱ってみよう
+// #19 フォームで使われるイベントを見てみよう
+// #20 フォームを送信してみよう
+// #21 イベントの伝播を理解しよう
 
 {
-
-  document.querySelector('button').addEventListener('click', () => {
-    const colors = document.querySelectorAll('input');
-    let selectedColor;
-
-    colors.forEach(color => {
-      if (color.checked === true) {
-        selectedColor = color.value;
-      }
-    });
-
-    const li = document.createElement('li');
-    li.textContent = selectedColor;
-    document.querySelector('ul').appendChild(li);
+  document.querySelector('ul').addEventListener('click', e => {
+    if (e.target.nodeName === 'LI') {
+      e.target.classList.toggle('done');
+    }
   });
-
 }
