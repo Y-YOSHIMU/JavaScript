@@ -18,10 +18,12 @@
 // #18 イベントオブジェクトを扱ってみよう
 // #19 フォームで使われるイベントを見てみよう
 // #20 フォームを送信してみよう
+// #21 イベントの伝播を理解しよう
 
 {
-  document.querySelector('form').addEventListener('submit', e => {
-    e.preventDefault();
-    console.log('submit');
+  document.querySelector('ul').addEventListener('click', e => {
+    if (e.target.nodeName === 'LI') {
+      e.target.classList.toggle('done');
+    }
   });
 }
