@@ -15,13 +15,19 @@
 // #15 ラジオボタンを操作してみよう
 // #16 チェックボックスを操作してみよう
 // #17 色々なイベントを見てみよう
+// #18 イベントオブジェクトを扱ってみよう
 
 {
   document.querySelector('button').addEventListener('dblclick', () => {
     console.log('Double Clicked!');
   });
 
-  document.addEventListener('mousemove', () => {
-    console.log('moved');
+  // document.addEventListener('mousemove', e => {
+  //   // console.log('moved');
+  //   console.log(e.clientX, e.clientY);
+  // });
+
+  document.addEventListener('keydown', e => {
+    console.log(e.key);
   });
 }
