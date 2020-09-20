@@ -8,13 +8,15 @@
   target.textContent = word;
 
   document.addEventListener('keydown', e => {
-    if (e.key === word[loc]) {
+    if (e.key !== word[loc]) {
+      return;
+    }
+
       loc++;
 
       // 1: _ed
       // 2: __d
       // 3: ___
       target.textContent = '_'.repeat(loc) + word.substring(loc);
-    }
   });
 }
