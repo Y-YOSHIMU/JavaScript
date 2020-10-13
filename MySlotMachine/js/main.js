@@ -46,6 +46,19 @@
         this.spin();
       }, 50);
     }
+
+    isUnmatched(p1, p2) {
+      // if (this.img.src !== p1.img.src && this.img.src !== p2.img.src) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+      return this.img.src !== p1.img.src && this.img.src !== p2.img.src;
+    }
+
+    unmatch() {
+      this.img.classList.add('unmatched');
+    }
   }
 
   function checkResult() {
