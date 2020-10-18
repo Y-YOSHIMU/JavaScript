@@ -46,3 +46,18 @@ body {
   font-size: 20px;
   text-align: right;
 }
+
+#btn {
+  cursor: pointer;
+  user-select: none;
+  background: #f44336;
+  padding: 8px;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: 0 4px 0 #d1483e;
+}
+
+#btn:active {
+  margin-top: 12px;
+  box-shadow: none;
+}
