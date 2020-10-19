@@ -10,6 +10,11 @@
     getEl() {
       return this.el;
     }
+
+    activate(num) {
+      this.el.classList.remove('pressed');
+      this.el.textContent = num;
+    }
   }
 
   class Board {
@@ -24,11 +29,21 @@
     setup() {
       const board = document.getElementById('board');
       this.panels.forEach(panel => {
-        // board.appendChild(panel.el);
         board.appendChild(panel.getEl()); // オブジェクト指向のカプセル化
-      })
+      });
+    }
+
+    activate() {
+      this.panels.forEach(panel => {
+        panel.activate(0);
+      });
     }
   }
 
   const board = new Board();
+
+  const btn = document.getElementById('btn');
+  btn.addEventListener('click', () => {
+    board.activate();
+  });
 }
