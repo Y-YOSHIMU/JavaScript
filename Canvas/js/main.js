@@ -8,8 +8,12 @@
     }
     const ctx = canvas.getContext('2d');
 
-    // ctx.fillRect(x, y, width, height);
-    // ctx.fillRect(50, 50, 50, 50);
+    ctx.fillStyle = 'pink';
+    ctx.strokeStyle = '#f00';
+    ctx.lineWidth = 8;
+    // ctx.lineJoin = 'round';
+    ctx.lineJoin = 'bevel';
+    ctx.fillRect(50, 50, 50, 50);
     ctx.strokeRect(50, 50, 50, 50);
   }
 
