@@ -21,7 +21,7 @@
     canvas.style.height = CANVAS_HEIGHT + 'px';
 
     ctx.font = 'bold 48px Verdana';
-    ctx.strokeText('Tokyo', 100, 100);
+    ctx.strokeText('Japan', 100, 100);
   }
 
   draw();
