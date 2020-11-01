@@ -14,7 +14,7 @@
     draw() {
       this.ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
       this.ctx.fillRect(0, 0, this.width, this.height);
-      
+
       this.ctx.save();
 
       this.ctx.translate(this.width / 2, this.height / 2);
