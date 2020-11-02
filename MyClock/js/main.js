@@ -1,6 +1,6 @@
 'use strict';
 
-// #4 短い目盛りを描画しよう
+// #5 盤面を完成させよう
 {
   class Clock {
     constructor() {
@@ -24,7 +24,15 @@
 
         ctx.beginPath();
         ctx.moveTo(0, -this.r);
-        ctx.lineTo(0, -this.r + 5);
+        if (angle % 30 === 0) {
+          ctx.lineWidth = 2;
+          ctx.lineTo(0, -this.r + 10);
+          ctx.font = '13px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+        } else {
+          ctx.lineTo(0, -this.r + 5);
+        }
         ctx.stroke();
 
         ctx.restore();
