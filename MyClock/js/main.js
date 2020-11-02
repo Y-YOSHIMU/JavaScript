@@ -1,8 +1,11 @@
 'use strict';
 
-// #3 盤面を描く準備をしよう
+// #4 短い目盛りを描画しよう
 {
   class Clock {
+    constructor() {
+      this.r = 100;
+    }
     drawFace() {
       const canvas = document.querySelector('canvas');
       if (typeof canvas.getContext === 'undefined') {
@@ -17,8 +20,12 @@
         ctx.save();
 
         ctx.translate(width / 2, height / 2);
-        // ctx.rotate(2 * Math.PI / 360 * angle); 約分
         ctx.rotate(Math.PI / 180 * angle);
+
+        ctx.beginPath();
+        ctx.moveTo(0, -this.r);
+        ctx.lineTo(0, -this.r + 5);
+        ctx.stroke();
 
         ctx.restore();
       }
