@@ -1,6 +1,6 @@
 'use strict';
 
-// #8 時計を描画しよう
+// #9 分針、秒針を描画しよう
 
 (() => {
   class ClockDrawer {
@@ -8,10 +8,6 @@
       this.ctx = canvas.getContext('2d');
       this.width = canvas.width;
       this.height = canvas.height;
-
-      this.h = (new Date()).getHours();
-      this.m = (new Date()).getMinutes();
-      this.s = (new Date()).getSeconds();
     }
 
     draw(angle, func) {
@@ -32,6 +28,10 @@
     constructor(drawer) {
       this.r = 100;
       this.drawer = drawer;
+
+      this.h = (new Date()).getHours();
+      this.m = (new Date()).getMinutes();
+      this.s = (new Date()).getSeconds();
     }
     drawFace() {
       for (let angle = 0; angle < 360; angle += 6) {
@@ -56,6 +56,20 @@
         ctx.lineWidth = 6;
         ctx.moveTo(0, 10);
         ctx.lineTo(0, -this.r + 50);
+      });
+
+      // minute
+      this.drawer.draw(this.m * 6, ctx => {
+        ctx.lineWidth = 4;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 30);
+      });
+
+      // second
+      this.drawer.draw(this.s * 6, ctx => {
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(0, 20);
+        ctx.lineTo(0, -this.r + 20);
       });
     }
     run() {
