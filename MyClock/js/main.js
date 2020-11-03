@@ -1,6 +1,6 @@
 'use strict';
 
-// #9 分針、秒針を描画しよう
+// #10 時計を動かしてみよう
 
 (() => {
   class ClockDrawer {
@@ -21,6 +21,10 @@
       this.ctx.stroke();
 
       this.ctx.restore();
+    }
+
+    clear() {
+      this.ctx.clearRect(0, 0, this.width, this.height);
     }
   }
 
@@ -72,9 +76,24 @@
         ctx.lineTo(0, -this.r + 20);
       });
     }
+
+    update() {
+      const d = new Date();
+      this.h = d.getHours();
+      this.m = d.getMinutes();
+      this.s = d.getSeconds();
+    }
+
     run() {
+      this.update();
+
+      this.drawer.clear();
       this.drawFace();
       this.drawHands();
+
+      setTimeout(() => {
+        this.run();
+      }, 100);
     }
   }
 
