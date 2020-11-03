@@ -1,48 +1,74 @@
 'use strict';
 
-// #5 盤面を完成させよう
-{
-  class Clock {
-    constructor() {
-      this.r = 100;
+// #8 時計を描画しよう
+
+(() => {
+  class ClockDrawer {
+    constructor(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+
+      this.h = (new Date()).getHours();
+      this.m = (new Date()).getMinutes();
+      this.s = (new Date()).getSeconds();
     }
-    drawFace() {
-      const canvas = document.querySelector('canvas');
-      if (typeof canvas.getContext === 'undefined') {
-        return;
-      }
-      const ctx = canvas.getContext('2d');
 
-      const width = canvas.width;
-      const height = canvas.height;
+    draw(angle, func) {
+      this.ctx.save();
 
-      for (let angle = 0; angle < 360; angle += 6) {
-        ctx.save();
+      this.ctx.translate(this.width / 2, this.height / 2);
+      this.ctx.rotate(Math.PI / 180 * angle);
 
-        ctx.translate(width / 2, height / 2);
-        ctx.rotate(Math.PI / 180 * angle);
+      this.ctx.beginPath();
+      func(this.ctx);
+      this.ctx.stroke();
 
-        ctx.beginPath();
-        ctx.moveTo(0, -this.r);
-        if (angle % 30 === 0) {
-          ctx.lineWidth = 2;
-          ctx.lineTo(0, -this.r + 10);
-          ctx.font = '13px Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
-        } else {
-          ctx.lineTo(0, -this.r + 5);
-        }
-        ctx.stroke();
-
-        ctx.restore();
-      }
-    }
-    run() {
-      this.drawFace();
+      this.ctx.restore();
     }
   }
 
-  const clock = new Clock();
+  class Clock {
+    constructor(drawer) {
+      this.r = 100;
+      this.drawer = drawer;
+    }
+    drawFace() {
+      for (let angle = 0; angle < 360; angle += 6) {
+        this.drawer.draw(angle, ctx => {
+          ctx.moveTo(0, -this.r);
+          if (angle % 30 === 0) {
+            ctx.lineWidth = 2;
+            ctx.lineTo(0, -this.r + 10);
+            ctx.font = '13px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(angle / 30 || 12, 0, -this.r + 25);
+          } else {
+            ctx.lineTo(0, -this.r + 5);
+          }
+        });
+      }
+    }
+
+    drawHands() {
+      // hour
+      this.drawer.draw(this.h * 30 + this.m * 0.5, ctx => {
+        ctx.lineWidth = 6;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 50);
+      });
+    }
+    run() {
+      this.drawFace();
+      this.drawHands();
+    }
+  }
+
+  const canvas = document.querySelector('canvas');
+  if (typeof canvas.getContext === 'undefined') {
+    return;
+  }
+
+  const clock = new Clock(new ClockDrawer(canvas));
   clock.run()
-}
+})();
