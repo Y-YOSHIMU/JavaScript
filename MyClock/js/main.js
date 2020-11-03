@@ -1,6 +1,6 @@
 'use strict';
 
-// #8 時計を描画しよう
+// #10 時計を動かしてみよう
 
 (() => {
   class ClockDrawer {
@@ -8,10 +8,6 @@
       this.ctx = canvas.getContext('2d');
       this.width = canvas.width;
       this.height = canvas.height;
-
-      this.h = (new Date()).getHours();
-      this.m = (new Date()).getMinutes();
-      this.s = (new Date()).getSeconds();
     }
 
     draw(angle, func) {
@@ -26,12 +22,20 @@
 
       this.ctx.restore();
     }
+
+    clear() {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+    }
   }
 
   class Clock {
     constructor(drawer) {
       this.r = 100;
       this.drawer = drawer;
+
+      this.h = (new Date()).getHours();
+      this.m = (new Date()).getMinutes();
+      this.s = (new Date()).getSeconds();
     }
     drawFace() {
       for (let angle = 0; angle < 360; angle += 6) {
@@ -57,10 +61,39 @@
         ctx.moveTo(0, 10);
         ctx.lineTo(0, -this.r + 50);
       });
+
+      // minute
+      this.drawer.draw(this.m * 6, ctx => {
+        ctx.lineWidth = 4;
+        ctx.moveTo(0, 10);
+        ctx.lineTo(0, -this.r + 30);
+      });
+
+      // second
+      this.drawer.draw(this.s * 6, ctx => {
+        ctx.strokeStyle = 'red';
+        ctx.moveTo(0, 20);
+        ctx.lineTo(0, -this.r + 20);
+      });
     }
+
+    update() {
+      const d = new Date();
+      this.h = d.getHours();
+      this.m = d.getMinutes();
+      this.s = d.getSeconds();
+    }
+
     run() {
+      this.update();
+
+      this.drawer.clear();
       this.drawFace();
       this.drawHands();
+
+      setTimeout(() => {
+        this.run();
+      }, 100);
     }
   }
 
