@@ -1,6 +1,6 @@
 'use strict';
 
-// switch文の書き換え
+// UDLRをプロパティにしてswapTilesも書き換える
 
 (() => {
   class Puzzle {
@@ -13,6 +13,12 @@
         [4, 5, 6, 7],
         [8, 9, 10, 11],
         [12, 13, 14, 15],
+      ];
+      this.UDLR = [
+        [0, -1], // up
+        [0, 1], // down
+        [-1, 0], // left
+        [1, 0], // right
       ];
       this.img = document.createElement('img');
       this.img.src = 'img/15puzzle.png';
@@ -38,32 +44,8 @@
         let destRow;
         do {
           const dir = Math.floor(Math.random() * 4);
-          const UDLR = [
-            [0, -1], // up
-            [0, 1], // down
-            [-1, 0], // left
-            [1, 0], // right
-          ];
-          destCol = blankCol + UDLR[dir][0];
-          destRow = blankRow + UDLR[dir][1];
-          // switch (dir) {
-          //   case 0: // up
-          //     destCol = blankCol + UDLR[0][0];
-          //     destRow = blankRow + UDLR[0][1];
-          //     break;
-          //   case 1: // down
-          //     destCol = blankCol + UDLR[1][0];
-          //     destRow = blankRow + UDLR[1][1];
-          //     break;
-          //   case 2: // left
-          //     destCol = blankCol + UDLR[2][0];
-          //     destRow = blankRow + UDLR[2][1];
-          //     break;
-          //   case 3: // right
-          //     destCol = blankCol + UDLR[3][0];
-          //     destRow = blankRow + UDLR[3][1];
-          //    break;
-          // }
+          destCol = blankCol + this.UDLR[dir][0];
+          destRow = blankRow + this.UDLR[dir][1];
         } while (
           destCol < 0 || destCol > 3 ||
           destRow < 0 || destRow > 3
@@ -87,27 +69,8 @@
       }
 
       for (let i = 0; i < 4; i++) {
-        let destCol;
-        let destRow;
-
-        switch (i) {
-          case 0: // up
-            destCol = col;
-            destRow = row - 1;
-            break;
-          case 1: // down
-            destCol = col;
-            destRow = row + 1;
-            break;
-          case 2: // left
-            destCol = col - 1;
-            destRow = row;
-            break;
-          case 3: // right
-            destCol = col + 1;
-            destRow = row;
-           break;
-        }
+        const destCol = col + this.UDLR[i][0];
+        const destRow = row + this.UDLR[i][1];
 
         if (
           destCol < 0 || destCol > 3 ||
