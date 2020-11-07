@@ -20,8 +20,39 @@
         const rect = this.canvas.getBoundingClientRect();
         const col = Math.floor((e.clientX - rect.left) / 70);
         const row = Math.floor((e.clientY - rect.top) / 70);
-        console.log(col, row);
+        this.swapTiles(col, row);
+        this.render();
       });
+    }
+
+    swapTiles(col, row) {
+      if (this.tiles[row][col] === 15) {
+        return;
+      }
+
+      for (let i = 0; i < 4; i++) {
+        let destCol;
+        let destRow;
+
+        switch (i) {
+          case 0: // up
+            destCol = col;
+            destRow = row - 1;
+            break;
+          case 1: // down
+            destCol = col;
+            destRow = row + 1;
+            break;
+          case 2: // left
+            destCol = col - 1;
+            destRow = row;
+            break;
+          case 3: // right
+            destCol = col + 1;
+            destRow = row;
+           break;
+        }
+      }
     }
 
     render() {
