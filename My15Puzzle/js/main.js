@@ -1,5 +1,7 @@
 'use strict';
 
+// switch文の書き換え
+
 (() => {
   class Puzzle {
     constructor(canvas, level) {
@@ -36,24 +38,32 @@
         let destRow;
         do {
           const dir = Math.floor(Math.random() * 4);
-          switch (dir) {
-            case 0: // up
-              destCol = blankCol;
-              destRow = blankRow - 1;
-              break;
-            case 1: // down
-              destCol = blankCol;
-              destRow = blankRow + 1;
-              break;
-            case 2: // left
-              destCol = blankCol - 1;
-              destRow = blankRow;
-              break;
-            case 3: // right
-              destCol = blankCol + 1;
-              destRow = blankRow;
-             break;
-          }
+          const UDLR = [
+            [0, -1], // up
+            [0, 1], // down
+            [-1, 0], // left
+            [1, 0], // right
+          ];
+          destCol = blankCol + UDLR[dir][0];
+          destRow = blankRow + UDLR[dir][1];
+          // switch (dir) {
+          //   case 0: // up
+          //     destCol = blankCol + UDLR[0][0];
+          //     destRow = blankRow + UDLR[0][1];
+          //     break;
+          //   case 1: // down
+          //     destCol = blankCol + UDLR[1][0];
+          //     destRow = blankRow + UDLR[1][1];
+          //     break;
+          //   case 2: // left
+          //     destCol = blankCol + UDLR[2][0];
+          //     destRow = blankRow + UDLR[2][1];
+          //     break;
+          //   case 3: // right
+          //     destCol = blankCol + UDLR[3][0];
+          //     destRow = blankRow + UDLR[3][1];
+          //    break;
+          // }
         } while (
           destCol < 0 || destCol > 3 ||
           destRow < 0 || destRow > 3
