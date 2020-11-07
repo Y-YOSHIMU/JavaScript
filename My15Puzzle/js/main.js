@@ -2,8 +2,9 @@
 
 (() => {
   class Puzzle {
-    constructor(canvas) {
+    constructor(canvas, level) {
       this.canvas = canvas;
+      this.level = level;
       this.ctx = this.canvas.getContext('2d');
       this.tiles = [
         [0, 1, 2, 3],
@@ -23,6 +24,51 @@
         this.swapTiles(col, row);
         this.render();
       });
+      this.shuffle(this.level);
+    }
+
+    shuffle(n) {
+      let blankCol = 3;
+      let blankRow = 3;
+
+      for (let i = 0; i < n; i++) {
+        let destCol;
+        let destRow;
+        do {
+          const dir = Math.floor(Math.random() * 4);
+          switch (dir) {
+            case 0: // up
+              destCol = blankCol;
+              destRow = blankRow - 1;
+              break;
+            case 1: // down
+              destCol = blankCol;
+              destRow = blankRow + 1;
+              break;
+            case 2: // left
+              destCol = blankCol - 1;
+              destRow = blankRow;
+              break;
+            case 3: // right
+              destCol = blankCol + 1;
+              destRow = blankRow;
+             break;
+          }
+        } while (
+          destCol < 0 || destCol > 3 ||
+          destRow < 0 || destRow > 3
+        );
+
+        [
+          this.tiles[blankRow][blankCol],
+          this.tiles[destRow][destCol],
+        ] = [
+          this.tiles[destRow][destCol],
+          this.tiles[blankRow][blankCol],
+        ];
+
+        [blankCol, blankRow] = [destCol, destRow];
+      }
     }
 
     swapTiles(col, row) {
@@ -95,5 +141,5 @@
     return;
   }
 
-  new Puzzle(canvas);
+  new Puzzle(canvas, 30);
 })();
