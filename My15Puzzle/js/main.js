@@ -7,12 +7,12 @@
       this.canvas = canvas;
       this.ctx = this.canvas.getContext('2d');
       this.img = document.createElement('img');
-      this.img.src = 'img/15puzzle.png';
+      // this.img.src = 'img/15puzzle.png';
+      this.img.src = 'img/animal1.png';
       this.img.addEventListener('load', () => {
         this.render();
       });
       this.canvas.addEventListener('click', e => {
-        // if (this.puzzle.isCompleted === true) {
         if (this.puzzle.getCompletedStatus() === true) {
           return;
         }
@@ -24,7 +24,6 @@
         this.render();
 
         if (this.puzzle.isComplete() === true) {
-          // this.isCompleted = true;
           this.puzzle.setCompletedStatus(true);
           this.renderGameClear();
         }
@@ -42,24 +41,27 @@
     render() {
       for (let row = 0; row < 4; row++) {
         for (let col = 0; col < 4; col++) {
-          // this.renderTile(this.tiles[row][col], col, row);
           this.renderTile(this.puzzle.getTile(row, col), col, row);
         }
       }
     }
 
     renderTile(n, col, row) {
-      this.ctx.drawImage(
-        this.img,
-        (n % 4) * 70, Math.floor(n / 4) * 70, 70, 70,
-        col * 70, row * 70, 70, 70
-      );
+      if (n === 15) {
+        this.ctx.fillStyle = '#eeeeee';
+        this.ctx.fillRect(col * 70, row * 70, 70, 70);
+      } else {
+        this.ctx.drawImage(
+          this.img,
+          (n % 4) * 70, Math.floor(n / 4) * 70, 70, 70,
+          col * 70, row * 70, 70, 70
+        );
+      }
     }
   }
 
   class Puzzle {
-    constructor(canvas, level) {
-      this.canvas = canvas;
+    constructor(level) {
       this.level = level;
       this.tiles = [
         [0, 1, 2, 3],
@@ -167,5 +169,5 @@
     return;
   }
 
-  new Puzzle(canvas, 2);
+  new PuzzleRenderer(new Puzzle(2), canvas);
 })();
