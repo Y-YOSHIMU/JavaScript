@@ -1,13 +1,66 @@
 'use strict';
 
-// UDLRをプロパティにしてswapTilesも書き換える
-
 (() => {
+  class PuzzleRenderer {
+    constructor(puzzle, canvas) {
+      this.puzzle = puzzle;
+      this.canvas = canvas;
+      this.ctx = this.canvas.getContext('2d');
+      this.img = document.createElement('img');
+      this.img.src = 'img/15puzzle.png';
+      this.img.addEventListener('load', () => {
+        this.render();
+      });
+      this.canvas.addEventListener('click', e => {
+        // if (this.puzzle.isCompleted === true) {
+        if (this.puzzle.getCompletedStatus() === true) {
+          return;
+        }
+
+        const rect = this.canvas.getBoundingClientRect();
+        const col = Math.floor((e.clientX - rect.left) / 70);
+        const row = Math.floor((e.clientY - rect.top) / 70);
+        this.puzzle.swapTiles(col, row);
+        this.render();
+
+        if (this.puzzle.isComplete() === true) {
+          // this.isCompleted = true;
+          this.puzzle.setCompletedStatus(true);
+          this.renderGameClear();
+        }
+      });
+    }
+
+    renderGameClear() {
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.font = '28px Arial';
+      this.ctx.fillStyle = '#fff';
+      this.ctx.fillText('GAME CLEAR!!', 40, 150);
+    }
+
+    render() {
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          // this.renderTile(this.tiles[row][col], col, row);
+          this.renderTile(this.puzzle.getTile(row, col), col, row);
+        }
+      }
+    }
+
+    renderTile(n, col, row) {
+      this.ctx.drawImage(
+        this.img,
+        (n % 4) * 70, Math.floor(n / 4) * 70, 70, 70,
+        col * 70, row * 70, 70, 70
+      );
+    }
+  }
+
   class Puzzle {
     constructor(canvas, level) {
       this.canvas = canvas;
       this.level = level;
-      this.ctx = this.canvas.getContext('2d');
       this.tiles = [
         [0, 1, 2, 3],
         [4, 5, 6, 7],
@@ -21,30 +74,21 @@
         [1, 0], // right
       ];
       this.isCompleted = false;
-      this.img = document.createElement('img');
-      this.img.src = 'img/15puzzle.png';
-      this.img.addEventListener('load', () => {
-        this.render();
-      });
-      this.canvas.addEventListener('click', e => {
-        if (this.isCompleted === true) {
-          return;
-        }
-
-        const rect = this.canvas.getBoundingClientRect();
-        const col = Math.floor((e.clientX - rect.left) / 70);
-        const row = Math.floor((e.clientY - rect.top) / 70);
-        this.swapTiles(col, row);
-        this.render();
-
-        if (this.isComplete() === true) {
-          this.isCompleted = true;
-          this.renderGameClear();
-        }
-      });
       do {
         this.shuffle(this.level);
       } while (this.isComplete() === true);
+    }
+
+    getCompletedStatus() {
+      return this.isCompleted;
+    }
+
+    setCompletedStatus(value) {
+      this.isCompleted = value;
+    }
+
+    getTile(row, col) {
+      return this.tiles[row][col];
     }
 
     shuffle(n) {
@@ -115,30 +159,6 @@
         }
       }
       return true;
-    }
-
-    renderGameClear() {
-      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      this.ctx.font = '28px Arial';
-      this.ctx.fillStyle = '#fff';
-      this.ctx.fillText('GAME CLEAR!!', 40, 150);
-    }
-
-    render() {
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 4; col++) {
-          this.renderTile(this.tiles[row][col], col, row);
-        }
-      }
-    }
-
-    renderTile(n, col, row) {
-      this.ctx.drawImage(
-        this.img,
-        (n % 4) * 70, Math.floor(n / 4) * 70, 70, 70,
-        col * 70, row * 70, 70, 70
-      );
     }
   }
 
