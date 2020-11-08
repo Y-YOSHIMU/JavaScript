@@ -6,9 +6,9 @@
       this.puzzle = puzzle;
       this.canvas = canvas;
       this.ctx = this.canvas.getContext('2d');
+      this.TILE_SIZE = 70;
       this.img = document.createElement('img');
-      // this.img.src = 'img/15puzzle.png';
-      this.img.src = 'img/animal1.png';
+      this.img.src = 'img/15puzzle.png';
       this.img.addEventListener('load', () => {
         this.render();
       });
@@ -18,8 +18,8 @@
         }
 
         const rect = this.canvas.getBoundingClientRect();
-        const col = Math.floor((e.clientX - rect.left) / 70);
-        const row = Math.floor((e.clientY - rect.top) / 70);
+        const col = Math.floor((e.clientX - rect.left) / this.TILE_SIZE);
+        const row = Math.floor((e.clientY - rect.top) / this.TILE_SIZE);
         this.puzzle.swapTiles(col, row);
         this.render();
 
@@ -39,22 +39,33 @@
     }
 
     render() {
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 4; col++) {
+      for (let row = 0; row < this.puzzle.getBoardSize(); row++) {
+        for (let col = 0; col < this.puzzle.getBoardSize(); col++) {
           this.renderTile(this.puzzle.getTile(row, col), col, row);
         }
       }
     }
 
     renderTile(n, col, row) {
-      if (n === 15) {
+      if (n === this.puzzle.getBlankIndex()) {
         this.ctx.fillStyle = '#eeeeee';
-        this.ctx.fillRect(col * 70, row * 70, 70, 70);
+        this.ctx.fillRect(
+          col * this.TILE_SIZE,
+          row * this.TILE_SIZE,
+          this.TILE_SIZE,
+          this.TILE_SIZE
+        );
       } else {
         this.ctx.drawImage(
           this.img,
-          (n % 4) * 70, Math.floor(n / 4) * 70, 70, 70,
-          col * 70, row * 70, 70, 70
+          (n % this.puzzle.getBoardSize()) * this.TILE_SIZE,
+          Math.floor(n / this.puzzle.getBoardSize()) * this.TILE_SIZE,
+          this.TILE_SIZE,
+          this.TILE_SIZE,
+          col * this.TILE_SIZE,
+          row * this.TILE_SIZE,
+          this.TILE_SIZE,
+          this.TILE_SIZE
         );
       }
     }
@@ -76,9 +87,19 @@
         [1, 0], // right
       ];
       this.isCompleted = false;
+      this.BOARD_SIZE = this.tiles.length;
+      this.BLANK_INDEX = this.BOARD_SIZE ** 2 - 1;
       do {
         this.shuffle(this.level);
       } while (this.isComplete() === true);
+    }
+
+    getBoardSize() {
+      return this.BOARD_SIZE;
+    }
+
+    getBlankIndex() {
+      return this.BLANK_INDEX;
     }
 
     getCompletedStatus() {
