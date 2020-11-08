@@ -20,12 +20,17 @@
         [-1, 0], // left
         [1, 0], // right
       ];
+      this.isCompleted = false;
       this.img = document.createElement('img');
       this.img.src = 'img/15puzzle.png';
       this.img.addEventListener('load', () => {
         this.render();
       });
       this.canvas.addEventListener('click', e => {
+        if (this.isCompleted === true) {
+          return;
+        }
+
         const rect = this.canvas.getBoundingClientRect();
         const col = Math.floor((e.clientX - rect.left) / 70);
         const row = Math.floor((e.clientY - rect.top) / 70);
@@ -33,6 +38,7 @@
         this.render();
 
         if (this.isComplete() === true) {
+          this.isCompleted = true;
           this.renderGameClear();
         }
       });
