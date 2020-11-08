@@ -31,8 +31,14 @@
         const row = Math.floor((e.clientY - rect.top) / 70);
         this.swapTiles(col, row);
         this.render();
+
+        if (this.isComplete() === true) {
+          this.renderGameClear();
+        }
       });
-      this.shuffle(this.level);
+      do {
+        this.shuffle(this.level);
+      } while (this.isComplete() === true);
     }
 
     shuffle(n) {
@@ -93,6 +99,26 @@
       );
     }
 
+    isComplete() {
+      let i = 0;
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          if (this.tiles[row][col] !== i++) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
+    renderGameClear() {
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.font = '28px Arial';
+      this.ctx.fillStyle = '#fff';
+      this.ctx.fillText('GAME CLEAR!!', 40, 150);
+    }
+
     render() {
       for (let row = 0; row < 4; row++) {
         for (let col = 0; col < 4; col++) {
@@ -115,5 +141,5 @@
     return;
   }
 
-  new Puzzle(canvas, 30);
+  new Puzzle(canvas, 2);
 })();
