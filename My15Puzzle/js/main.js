@@ -13,7 +13,7 @@
         this.render();
       });
       this.canvas.addEventListener('click', e => {
-        if (this.puzzle.getCompletedStatus() === true) {
+        if (this.puzzle.getCompletedStatus()) {
           return;
         }
 
@@ -23,7 +23,7 @@
         this.puzzle.swapTiles(col, row);
         this.render();
 
-        if (this.puzzle.isComplete() === true) {
+        if (this.puzzle.isComplete()) {
           this.puzzle.setCompletedStatus(true);
           this.renderGameClear();
         }
@@ -91,7 +91,7 @@
       this.BLANK_INDEX = this.BOARD_SIZE ** 2 - 1;
       do {
         this.shuffle(this.level);
-      } while (this.isComplete() === true);
+      } while (this.isComplete());
     }
 
     getBoardSize() {
@@ -115,17 +115,17 @@
     }
 
     shuffle(n) {
-      let blankCol = 3;
-      let blankRow = 3;
+      let blankCol = this.BOARD_SIZE - 1;
+      let blankRow = this.BOARD_SIZE - 1;
 
       for (let i = 0; i < n; i++) {
         let destCol;
         let destRow;
         do {
-          const dir = Math.floor(Math.random() * 4);
+          const dir = Math.floor(Math.random() * this.UDLR.length);
           destCol = blankCol + this.UDLR[dir][0];
           destRow = blankRow + this.UDLR[dir][1];
-        } while (this.isOutside(destCol, destRow) === true);
+        } while (this.isOutside(destCol, destRow));
 
         [
           this.tiles[blankRow][blankCol],
@@ -140,19 +140,19 @@
     }
 
     swapTiles(col, row) {
-      if (this.tiles[row][col] === 15) {
+      if (this.tiles[row][col] === this.BLANK_INDEX) {
         return;
       }
 
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < this.UDLR.length; i++) {
         const destCol = col + this.UDLR[i][0];
         const destRow = row + this.UDLR[i][1];
 
-        if (this.isOutside(destCol, destRow) === true) {
+        if (this.isOutside(destCol, destRow)) {
           continue;
         }
 
-        if (this.tiles[destRow][destCol] === 15) {
+        if (this.tiles[destRow][destCol] === this.BLANK_INDEX) {
           [
             this.tiles[row][col],
             this.tiles[destRow][destCol],
@@ -167,15 +167,15 @@
 
     isOutside(destCol, destRow) {
       return (
-        destCol < 0 || destCol > 3 ||
-        destRow < 0 || destRow > 3
+        destCol < 0 || destCol > this.BOARD_SIZE - 1 ||
+        destRow < 0 || destRow > this.BOARD_SIZE - 1
       );
     }
 
     isComplete() {
       let i = 0;
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 4; col++) {
+      for (let row = 0; row < this.BOARD_SIZE; row++) {
+        for (let col = 0; col < this.BOARD_SIZE; col++) {
           if (this.tiles[row][col] !== i++) {
             return false;
           }
