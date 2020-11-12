@@ -16,6 +16,14 @@
       this.vy = rand(3, 5);
     }
 
+    bounce() {
+      this.vy *= -1;
+    }
+
+    reposition(paddleTop) {
+      this.y = paddleTop - this.r;
+    }
+
     update() {
       this.x += this.vx;
       this.y += this.vy;
@@ -72,11 +80,12 @@
 
       if (
         ballBottom > paddleTop &&
-        ballTop > paddleBottom &&
+        ballTop < paddleBottom &&
         ballCenter > paddleLeft &&
         ballCenter < paddleRight
       ) {
-
+        ball.bounce();
+        ball.reposition(paddleTop);
       }
 
       const rect = this.canvas.getBoundingClientRect();
