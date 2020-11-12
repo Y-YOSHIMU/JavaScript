@@ -61,7 +61,24 @@
       });
     }
 
-    update() {
+    update(ball) {
+      const ballBottom = ball.y +ball.r;
+      const paddleTop = this.y;
+      const ballTop = ball.y - ball.r;
+      const paddleBottom = this.y + this.h;
+      const ballCenter = ball.x;
+      const paddleLeft = this.x;
+      const paddleRight = this.x + this.w;
+
+      if (
+        ballBottom > paddleTop &&
+        ballTop > paddleBottom &&
+        ballCenter > paddleLeft &&
+        ballCenter < paddleRight
+      ) {
+
+      }
+
       const rect = this.canvas.getBoundingClientRect();
       this.x = this.mouseX - rect.left - (this.w / 2);
 
@@ -99,7 +116,7 @@
 
     update() {
       this.ball.update();
-      this.paddle.update();
+      this.paddle.update(this.ball);
     }
 
     draw() {
