@@ -34,25 +34,29 @@ for (let row = 2; row < 9 - 2; row += 2) {
           let destRow;
           let destCol;
 
-          const dir = Math.floor(Math.random() * 4);
-          switch (dir) {
-            case 0: // up
-              destRow = row - 1;
-              destCol = col;
-              break;
-            case 1: // down
-              destRow = row + 1;
-              destCol = col;
-              break;
-            case 2: // left
-              destRow = row;
-              destCol = col - 1;
-              break;
-            case 3: // right
-              destRow = row;
-              destCol = col + 1;
-              break;
-          }
+          do {
+            const dir = Math.floor(Math.random() * 4);
+            switch (dir) {
+              case 0: // up
+                destRow = row - 1;
+                destCol = col;
+                break;
+              case 1: // down
+                destRow = row + 1;
+                destCol = col;
+                break;
+              case 2: // left
+                destRow = row;
+                destCol = col - 1;
+                break;
+              case 3: // right
+                destRow = row;
+                destCol = col + 1;
+                break;
+            }
+          } while (data[destRow][destCol] === 1);
+
+          data[destRow][destCol] = 1;
         }
       }
 
