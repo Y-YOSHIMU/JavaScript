@@ -37,7 +37,8 @@ body {
 .content.active {
   background: #333;
   color: #fff;
-  min-height: 12px;
+  min-height: 150px;
+  padding: 12px;
   display: block;
 }
 
