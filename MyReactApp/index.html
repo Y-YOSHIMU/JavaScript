@@ -13,18 +13,15 @@
   <script type="text/babel">
     (() => {
 
-    function Counter(props) {
-
-    function countUp(color) {
-      alert(color);
+    class Counter extends React.Component {
+      render() {
+        return (
+          <li style={{backgroundColor:this.props.color}}>
+            0
+          </li>
+        );
+      }
     }
-
-    return (
-      <li style={{backgroundColor:props.color}} onClick={() => countUp(props.color)}>
-        0
-      </li>
-    );
-  }
 
     ReactDOM.render(
       <div className="container">
