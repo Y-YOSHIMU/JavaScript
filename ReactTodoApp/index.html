@@ -21,7 +21,13 @@
       function TodoItem(props) {
         return (
           <li>
-            {props.todo.title}
+            <label>
+              <input type="checkbox"
+                checked={props.todo.isDone}
+                onChange={() => props.checkTodo(props.todo)}
+              />
+              {props.todo.title}
+            </label>
           </li>
         );
       }
@@ -32,6 +38,7 @@
             <TodoItem
               key={todo.id}
               todo={todo}
+              checkTodo={props.checkTodo}
             />
           );
         });
@@ -48,13 +55,17 @@
           this.state = {
             todos: todos
           };
+          this.checkTodo = this.checkTodo.bind(this);
         }
 
         render() {
           return (
             <div>
               <h1>My Todos</h1>
-              <TodoList todos={this.state.todos}/>
+              <TodoList
+               todos={this.state.todos}
+               checkTodo={this.checkTodo}
+              />
             </div>
           );
         }
