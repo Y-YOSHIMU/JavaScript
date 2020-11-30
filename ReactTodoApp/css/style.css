@@ -27,6 +27,13 @@ body {
   margin-right: 5px;
 }
 
+.cmd {
+  font-size: 12px;
+  cursor: pointer;
+  color: #08c;
+  margin-left: 5px;
+}
+
 .done {
   text-decoration: line-through;
   color: #ccc;
