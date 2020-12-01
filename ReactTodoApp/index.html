@@ -15,10 +15,14 @@
       const todos = [];
 
       function TodoHeader(props) {
+        const remaining = props.todos.filter(todo => {
+          return !todo.isDone;
+        });
+
         return (
           <h1>
             My Todos
-            <span>(1/3)</span>
+            <span>({remaining.length}/{props.todos.length})</span>
           </h1>
         );
       }
