@@ -21,6 +21,7 @@
 
         return (
           <h1>
+            <button onClick={props.purge}>Purge</button>
             My Todos
             <span>({remaining.length}/{props.todos.length})</span>
           </h1>
@@ -87,6 +88,20 @@
           this.deleteTodo = this.deleteTodo.bind(this);
           this.updateItem = this.updateItem.bind(this);
           this.addTodo = this.addTodo.bind(this);
+          this.purge = this.purge.bind(this);
+        }
+
+        purge() {
+          if (!confirm('are you sure?')) {
+            return;
+          }
+
+          const todos = this.state.todos.filter(todo => {
+            return !todo.isDone;
+          });
+          this.setState({
+            todos: todos
+          });
         }
 
         addTodo(e) {
@@ -150,6 +165,7 @@
             <div　className="container">
               <TodoHeader
                 todos={this.state.todos}
+                purge={this.purge}
               />
               <TodoList
                todos={this.state.todos}
