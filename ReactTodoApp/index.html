@@ -56,7 +56,7 @@
 
       function TodoForm(props) {
         return (
-          <form>
+          <form onSubmit={props.addTodo}>
             <input type="text" value={props.item} onChange={props.updateItem}/>
             <input type="submit" value="add"/>
           </form>
@@ -73,6 +73,21 @@
           this.checkTodo = this.checkTodo.bind(this);
           this.deleteTodo = this.deleteTodo.bind(this);
           this.updateItem = this.updateItem.bind(this);
+          this.addTodo = this.addTodo.bind(this);
+        }
+
+        addTodo(e) {
+          e.preventDefault();
+
+          const item = {
+
+          };
+
+          const todos = this.state.todos.slice();
+          todos.push(item);
+          this.setState({
+            todos: todos
+          });
         }
 
         deleteTodo(todo) {
@@ -122,6 +137,7 @@
               <TodoForm
                 item={this.state.item}
                 updateItem={this.updateItem}
+                addTodo={this.addTodo}
               />
             </div>
           );
